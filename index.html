@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mundo Juguete | Juega, imagina y descubre</title>
+
+<!-- Bootstrap 5 CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --mj-blue:#1c3d6e;
+    --mj-yellow:#ffc93c;
+    --mj-teal:#33b6b0;
+    --mj-coral:#f16a63;
+    --mj-bg-light:#eaf6fb;
+  }
+  html{
+    scroll-behavior:smooth;
+  }
+  body{
+    font-family:'Nunito', sans-serif;
+    color:#2b2b2b;
+  }
+  h1,h2,h3,.brand-font{
+    font-family:'Baloo 2', cursive;
+  }
+  .text-mj-blue{color:var(--mj-blue);}
+  .text-mj-teal{color:var(--mj-teal);}
+  .text-mj-coral{color:var(--mj-coral);}
+  .bg-mj-blue{background-color:var(--mj-blue);}
+  .bg-mj-yellow{background-color:var(--mj-yellow);}
+  .bg-mj-light{background-color:var(--mj-bg-light);}
+  .btn-mj-yellow{
+    background-color:var(--mj-yellow);
+    border:none;
+    font-weight:700;
+    color:var(--mj-blue);
+  }
+  .btn-mj-yellow:hover{background-color:#ffbf1f; color:var(--mj-blue);}
+
+  /* Sections need extra top offset so the sticky navbar doesn't cover the anchor target */
+  section[id], footer[id]{
+    scroll-margin-top:92px;
+  }
+
+  /* ===== Logo ===== */
+  .mj-logo{
+    font-family:'Baloo 2', cursive;
+    display:inline-flex;
+    align-items:center;
+    gap:.55rem;
+    text-decoration:none;
+  }
+  .mj-logo-icon{
+    font-size:2.1rem;
+    line-height:1;
+    filter:drop-shadow(0 3px 4px rgba(28,61,110,.25));
+    transform:rotate(-6deg);
+  }
+  .mj-logo-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1;
+  }
+  .mj-word-mundo{
+    font-size:1rem;
+    font-weight:700;
+    letter-spacing:.5px;
+    color:var(--mj-blue);
+  }
+  .mj-word-juguete{
+    font-size:1.6rem;
+    font-weight:800;
+    letter-spacing:.3px;
+    margin-top:-3px;
+    background:linear-gradient(90deg, var(--mj-coral), var(--mj-yellow) 55%, var(--mj-teal));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 2px 10px rgba(28,61,110,.08);
+  }
+  .footer-logo .mj-word-mundo{ color:#fff; }
+  .footer-logo .mj-logo-icon{ filter:drop-shadow(0 3px 4px rgba(0,0,0,.3)); }
+
+  /* ===== Cart button (replaces "Iniciar sesión") ===== */
+  .btn-cart{
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background-color:var(--mj-blue);
+    color:#fff;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    transition:background-color .2s ease, transform .2s ease;
+    flex-shrink:0;
+  }
+  .btn-cart:hover{
+    background-color:#152f56;
+    color:#fff;
+    transform:translateY(-2px);
+  }
+  .btn-cart svg{ width:22px; height:22px; }
+  .cart-badge{
+    position:absolute;
+    top:-3px;
+    right:-3px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--mj-coral);
+    color:#fff;
+    font-size:.65rem;
+    font-weight:800;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:2px solid #fff;
+  }
+
+  /* Hero */
+  .hero-section{ overflow:hidden; position:relative;}
+  .hero-img-wrap{
+    border-radius:1.5rem;
+    overflow:hidden;
+    box-shadow:0 20px 40px rgba(28,61,110,.15);
+  }
+  .hero-img-wrap img{ width:100%; height:100%; object-fit:cover;}
+
+  /* rounded feature circles */
+  .circle-photo{
+    width:180px; height:180px; border-radius:50%; object-fit:cover;
+    border:6px solid #fff;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+  }
+
+  .icon-badge{
+    width:56px; height:56px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.4rem; color:#fff; flex-shrink:0;
+  }
+
+  .brand-card{
+    border-radius:1rem;
+    height:100px;
+    display:flex; align-items:center; justify-content:center;
+    padding:.75rem 1rem;
+    box-shadow:0 6px 16px rgba(28,61,110,.08);
+  }
+  .brand-card img{
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+  }
+
+  .step-number{
+    width:46px; height:46px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-weight:800; color:#fff; font-size:1.2rem;
+  }
+
+  .video-wrap{ position:relative; border-radius:1.25rem; overflow:hidden; }
+  .video-wrap video{ width:100%; display:block; }
+  .play-overlay{
+    position:absolute; inset:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(20,40,70,.25);
+    cursor:pointer;
+    transition:opacity .25s ease;
+  }
+  .play-overlay .play-circle{
+    width:70px; height:70px; border-radius:50%;
+    background:rgba(255,255,255,.9);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; color:var(--mj-blue);
+  }
+  .video-wrap.playing .play-overlay{ opacity:0; pointer-events:none; }
+
+  .banner-section{
+    background:linear-gradient(90deg, var(--mj-teal), #2aa6c9);
+    border-radius:1.5rem;
+    overflow:hidden;
+  }
+  .carousel-item img{ height:340px; object-fit:cover; }
+  @media (max-width:767px){
+    .carousel-item img{ height:230px; }
+  }
+
+  .footer-social a{
+    width:38px; height:38px; border-radius:50%;
+    background:rgba(255,255,255,.12);
+    display:inline-flex; align-items:center; justify-content:center;
+    color:#fff; margin-left:.4rem;
+    transition:background-color .2s ease;
+  }
+  .footer-social a:hover{
+    background:rgba(255,255,255,.25);
+  }
+
+  .search-pill{
+    border-radius:50px; border:1px solid #dfe7ee; padding:.6rem 1.1rem;
+  }
+
+  /* Active nav link highlight (scrollspy) */
+  .navbar-nav .nav-link{
+    position:relative;
+    padding-bottom:.35rem;
+    border-bottom:3px solid transparent;
+  }
+  .navbar-nav .nav-link.active{
+    color:var(--mj-blue) !important;
+    font-weight:800;
+    border-bottom-color:var(--mj-yellow);
+  }
+</style>
+</head>
+<body data-bs-spy="scroll" data-bs-target="#mjNav" data-bs-offset="100" tabindex="0">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top py-3">
+  <div class="container">
+    <a class="navbar-brand mj-logo" href="#inicio">
+      <span class="mj-logo-icon"></span>
+      <span class="mj-logo-text">
+        <span class="mj-word-mundo">Mundo</span>
+        <span class="mj-word-juguete">Juguete</span>
+      </span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mjNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mjNav">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0 gap-lg-4 text-center">
+        <li class="nav-item"><a class="nav-link fw-bold text-mj-blue" href="#inicio">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="#juguetes">Juguetes</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="#categorias">Categorías</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="#nosotros">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="#ofertas">Ofertas</a></li>
+        <li class="nav-item"><a class="nav-link fw-semibold text-secondary" href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="#" class="btn-cart position-relative" aria-label="Ver carrito de compras">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="21" r="1"></circle>
+          <circle cx="20" cy="21" r="1"></circle>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+        </svg>
+        <span class="cart-badge">0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="inicio" class="hero-section bg-mj-light py-5">
+  <div class="container py-lg-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-6">
+        <h1 class="display-4 fw-bold text-mj-blue">Juega, imagina<br>y descubre</h1>
+        <p class="lead text-secondary mb-4">Los mejores juguetes para cada etapa, solo en Mundo Juguete.</p>
+        <form class="d-flex flex-column flex-sm-row gap-3 mb-4">
+          <div class="search-pill bg-white flex-grow-1 d-flex align-items-center">
+            <i class="bi bi-search text-secondary me-2"></i>
+            <input type="text" class="form-control border-0 shadow-none p-0" placeholder="¿Qué juguete buscas?">
+          </div>
+        </form>
+        <a href="#juguetes" class="btn btn-mj-yellow rounded-pill px-4 py-2">Explorar juguetes <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="col-lg-6">
+        <div class="hero-img-wrap">
+       <img src="assets/logos/lgo_principal.jpg" alt="Logo PlayZone">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GRANDES AVENTURAS -->
+<section id="juguetes" class="py-5">
+  <div class="container py-lg-4">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-5">
+        <div class="video-wrap shadow" id="videoWrap">
+          <video id="mjVideo" poster="https://assets.mixkit.co/videos/4553/4553-thumb-360-0.jpg" controls>
+            <source src="https://assets.mixkit.co/videos/4553/4553-360.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+          </video>
+          <div class="play-overlay" onclick="playMjVideo()">
+            <div class="play-circle"><i class="bi bi-play-fill"></i></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7">
+        <h2 class="fw-bold text-mj-blue mb-2">Todo para grandes <span class="text-mj-teal">aventuras</span></h2>
+        <p class="text-secondary mb-4">Juguetes que inspiran, educan y hacen felices a los más pequeños (¡y a los grandes también!).</p>
+        <div class="row g-4">
+          <div class="col-sm-6 d-flex gap-3">
+            <div class="icon-badge bg-mj-yellow"><i class="bi bi-emoji-smile"></i></div>
+            <div>
+              <h6 class="fw-bold text-mj-blue mb-1">Diversión garantizada</h6>
+              <p class="small text-secondary mb-0">Momentos felices en cada juego.</p>
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex gap-3">
+            <div class="icon-badge" style="background-color:var(--mj-teal)"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <h6 class="fw-bold text-mj-blue mb-1">Juguetes seguros</h6>
+              <p class="small text-secondary mb-0">Materiales de alta calidad y sin riesgos.</p>
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex gap-3">
+            <div class="icon-badge" style="background-color:var(--mj-coral)"><i class="bi bi-people-fill"></i></div>
+            <div>
+              <h6 class="fw-bold text-mj-blue mb-1">Para todas las edades</h6>
+              <p class="small text-secondary mb-0">Desde bebés hasta adolescentes.</p>
+            </div>
+          </div>
+          <div class="col-sm-6 d-flex gap-3">
+            <div class="icon-badge" style="background-color:#4aa8e0"><i class="bi bi-truck"></i></div>
+            <div>
+              <h6 class="fw-bold text-mj-blue mb-1">Envíos y compras fáciles</h6>
+              <p class="small text-secondary mb-0">Tu juguete, en la puerta de tu casa.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARCAS -->
+<section id="categorias" class="bg-mj-blue text-white py-5">
+  <div class="container py-lg-3">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-4">
+        <h2 class="fw-bold">Nuestras <span style="color:var(--mj-yellow)">marcas</span></h2>
+        <p class="text-white-50">Trabajamos con las mejores marcas para que siempre encuentres calidad, diversión y confianza.</p>
+      </div>
+      <div class="col-lg-8">
+        <div class="row row-cols-2 row-cols-md-4 g-3">
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/playzone.png" alt="Logo PlayZone"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/dreamtoys.png" alt="Logo DreamToys"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/buildandgo.png" alt="Logo Build&amp;Go"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/littlestars.png" alt="Logo Little Stars"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/funtime.png" alt="Logo FunTime"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/megaplay.png" alt="Logo MegaPlay"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/pixel.png" alt="Logo Pixel"></div></div>
+          <div class="col"><div class="brand-card bg-white"><img src="assets/logos/happykids.png" alt="Logo Happy Kids"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOQUES CIRCULARES -->
+<section class="bg-mj-light py-5">
+  <div class="container py-lg-4">
+    <div class="row text-center g-5">
+      <div class="col-md-4">
+        <img src="https://assets.mixkit.co/videos/42165/42165-thumb-360-0.jpg" class="circle-photo mb-3" alt="Aprender jugando">
+        <h5 class="fw-bold text-mj-blue">Aprender jugando</h5>
+        <p class="text-secondary small px-lg-3">Los juguetes estimulan la creatividad, la concentración y el desarrollo de habilidades.</p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://assets.mixkit.co/videos/42197/42197-thumb-360-0.jpg" class="circle-photo mb-3" alt="Diversión para compartir">
+        <h5 class="fw-bold text-mj-blue">Diversión para compartir</h5>
+        <p class="text-secondary small px-lg-3">Porque los mejores momentos se viven en familia y con amigos.</p>
+      </div>
+      <div class="col-md-4">
+        <img src="https://assets.mixkit.co/videos/45166/45166-thumb-360-0.jpg" class="circle-photo mb-3" alt="Imaginación sin límites">
+        <h5 class="fw-bold text-mj-blue">Imaginación sin límites</h5>
+        <p class="text-secondary small px-lg-3">Cada juguete es una puerta a un mundo de aventuras y nuevas historias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section class="py-5">
+  <div class="container py-lg-4">
+    <h2 class="fw-bold text-center text-mj-blue mb-5">¿Cómo <span class="text-mj-teal">funciona</span>?</h2>
+    <div class="row g-4 text-center">
+      <div class="col-md-4 d-flex flex-column align-items-center">
+        <div class="step-number bg-mj-yellow text-mj-blue mb-3">1</div>
+        <i class="bi bi-cart3 fs-1 text-mj-blue mb-2"></i>
+        <h6 class="fw-bold text-mj-blue">Elige tu juguete</h6>
+        <p class="text-secondary small">Explora nuestro catálogo y encuentra el juguete perfecto.</p>
+      </div>
+      <div class="col-md-4 d-flex flex-column align-items-center">
+        <div class="step-number mb-3" style="background-color:var(--mj-teal)">2</div>
+        <i class="bi bi-credit-card fs-1 mb-2" style="color:var(--mj-teal)"></i>
+        <h6 class="fw-bold text-mj-blue">Haz tu pedido</h6>
+        <p class="text-secondary small">Compra de forma segura y elige tu método de envío.</p>
+      </div>
+      <div class="col-md-4 d-flex flex-column align-items-center">
+        <div class="step-number mb-3" style="background-color:var(--mj-coral)">3</div>
+        <i class="bi bi-gift fs-1 mb-2 text-mj-coral"></i>
+        <h6 class="fw-bold text-mj-blue">¡A jugar!</h6>
+        <p class="text-secondary small">Recibe tu pedido y prepárate para vivir grandes momentos.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER / CARRUSEL -->
+<section id="ofertas" class="py-4">
+  <div class="container">
+    <div id="mjCarousel" class="carousel slide banner-section" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="row g-0 align-items-center">
+            <div class="col-md-6 p-5 text-white">
+              <h2 class="fw-bold">El juguete perfecto <br>está aquí</h2>
+              <p class="mb-4">Descubre nuestra colección y encuentra el regalo ideal para cada ocasión.</p>
+              <a href="#" class="btn btn-mj-yellow rounded-pill px-4">Ver colección</a>
+            </div>
+            <div class="col-md-6">
+              <img src="https://assets.mixkit.co/videos/42183/42183-thumb-360-0.jpg" class="w-100" alt="Colección de juguetes">
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row g-0 align-items-center">
+            <div class="col-md-6 p-5 text-white">
+              <h2 class="fw-bold">Novedades cada <br>semana</h2>
+              <p class="mb-4">Nuevos juguetes llegan constantemente para sorprender a los más pequeños.</p>
+              <a href="#" class="btn btn-mj-yellow rounded-pill px-4">Ver novedades</a>
+            </div>
+            <div class="col-md-6">
+              <img src="https://assets.mixkit.co/videos/42166/42166-thumb-360-0.jpg" class="w-100" alt="Novedades de juguetes">
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="row g-0 align-items-center">
+            <div class="col-md-6 p-5 text-white">
+              <h2 class="fw-bold">Ofertas especiales <br>todo el año</h2>
+              <p class="mb-4">Aprovecha descuentos exclusivos en tus juguetes favoritos.</p>
+              <a href="#" class="btn btn-mj-yellow rounded-pill px-4">Ver ofertas</a>
+            </div>
+            <div class="col-md-6">
+              <img src="https://assets.mixkit.co/videos/42180/42180-thumb-360-0.jpg" class="w-100" alt="Ofertas de juguetes">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#mjCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#mjCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#mjCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#mjCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#mjCarousel" data-bs-slide-to="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO ADICIONAL -->
+<section id="nosotros" class="py-5 bg-mj-light">
+  <div class="container py-lg-3">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <h6 class="fw-bold text-mj-blue mb-3">Compra fácil y segura</h6>
+        <ul class="list-unstyled small text-secondary">
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-mj-teal me-2"></i>Compra fácil y segura</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-mj-teal me-2"></i>Juguetes por edad</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-mj-teal me-2"></i>Ofertas especiales</li>
+          <li class="mb-2"><i class="bi bi-check-circle-fill text-mj-teal me-2"></i>Novedades cada semana</li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h6 class="fw-bold text-mj-blue mb-3">Más que juguetes…</h6>
+        <p class="small text-secondary">En Mundo Juguete creemos que cada juguete es una oportunidad para aprender, crear y ser feliz. Por eso, seleccionamos con mucho cariño cada producto, para que tus pequeños vivan grandes aventuras.</p>
+      </div>
+      <div class="col-md-4">
+        <h6 class="fw-bold text-mj-blue mb-3">Nuestra misión</h6>
+        <p class="small text-secondary">Hacer que cada niño y niña descubra el mundo a través del juego, brindando productos de calidad, seguros y accesibles, con un servicio cercano y confiable para toda la familia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto" class="bg-mj-blue text-white pt-5 pb-4">
+  <div class="container">
+    <div class="row g-4 align-items-start">
+      <div class="col-md-4">
+        <a href="#inicio" class="mj-logo footer-logo mb-2 text-decoration-none">
+          <span class="mj-logo-icon"></span>
+          <span class="mj-logo-text">
+            <span class="mj-word-mundo">Mundo</span>
+            <span class="mj-word-juguete">Juguete</span>
+          </span>
+        </a>
+      </div>
+      <div class="col-md-4 d-flex justify-content-md-center gap-4 small flex-wrap">
+        <a href="#inicio" class="text-white-50 text-decoration-none">Inicio</a>
+        <a href="#juguetes" class="text-white-50 text-decoration-none">Juguetes</a>
+        <a href="#categorias" class="text-white-50 text-decoration-none">Categorías</a>
+        <a href="#nosotros" class="text-white-50 text-decoration-none">Nosotros</a>
+        <a href="#contacto" class="text-white-50 text-decoration-none">Contacto</a>
+      </div>
+      <div class="col-md-4 text-md-end footer-social">
+        <a href="https://www.facebook.com/login/" target="_blank" rel="noopener" aria-label="Iniciar sesión en Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/accounts/login/" target="_blank" rel="noopener" aria-label="Iniciar sesión en Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="https://www.tiktok.com/login" target="_blank" rel="noopener" aria-label="Iniciar sesión en TikTok"><i class="bi bi-tiktok"></i></a>
+        <a href="https://accounts.google.com/ServiceLogin?service=youtube" target="_blank" rel="noopener" aria-label="Iniciar sesión en YouTube"><i class="bi bi-youtube"></i></a>
+      </div>
+    </div>
+    <hr class="border-white-50 my-4">
+    <p class="text-center small text-white-50 mb-0">© 2026 Mundo Juguete. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function playMjVideo(){
+    const video = document.getElementById('mjVideo');
+    const wrap = document.getElementById('videoWrap');
+    video.play();
+    wrap.classList.add('playing');
+  }
+  document.getElementById('mjVideo').addEventListener('pause', function(){
+    document.getElementById('videoWrap').classList.remove('playing');
+  });
+
+  // Close the mobile navbar after a link is tapped
+  document.querySelectorAll('#mjNav .nav-link').forEach(function(link){
+    link.addEventListener('click', function(){
+      const navEl = document.getElementById('mjNav');
+      if (navEl.classList.contains('show')) {
+        bootstrap.Collapse.getOrCreateInstance(navEl).hide();
+      }
+    });
+  });
+</script>
+</body>
+</html>
